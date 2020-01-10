@@ -9,7 +9,7 @@ let userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true,
-        minlength: 5
+        minlength: 3
     },
     password: {
         type: String,
@@ -28,8 +28,10 @@ let userSchema = new mongoose.Schema({
         }
     },
     tokens: [{
-        token: String,
-        required: true
+        token: {
+            type: String,
+            required: true
+        }
     }]
 })
 
