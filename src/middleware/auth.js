@@ -12,7 +12,6 @@ const auth = async (req, res, next) => {
         }
         req.token = token;
         req.user = user;
-        // const user = await User.findById()
         next();
     } catch (e) {
         res.status(401).send({ error: 'Please authenticate' + e });
