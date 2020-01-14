@@ -5,7 +5,7 @@ require('./db/mongoose');
 
 // Express set up
 let port = process.env.PORT || 3000;
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(userRouter);
 
 // Start express server
