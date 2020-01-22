@@ -47,4 +47,32 @@ router.post('/users/logoutall', auth, async(req, res) => {
     }
 })
 
+router.patch('/users/me', auth, async (req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['password', 'email'];
+    const isValidOp = updates.every((update) => allowedUpdates.includes(update));
+    if (!isValidOp) {
+        return res.status(400).send('Error: invalid update');
+    }
+    try {
+        updates.forEach((update) => req.user[update] = req.body[update]);
+        if (!req.user) {
+            res.status(404).send();
+        }
+        await req.user.save();
+        res.send(req.user);
+    } catch (e) {
+        res.status(500).send();
+    }
+
+})
+
+router.get('/users/secret', auth, async (req, res) => {
+    try {
+        res.send('This is secret');
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
+
 module.exports = router;
